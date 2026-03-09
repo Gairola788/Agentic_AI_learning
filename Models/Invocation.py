@@ -11,12 +11,13 @@ model = init_chat_model("llama3.1", model_provider="ollama")
 # print(response)
 
 #List of messages
-conversation = [ #Dictionary format
-    {"role": "system", "content": "You are a helpful assistant that translates English to French."},
-    {"role": "user", "content": "Translate: I love programming."},
-    {"role": "assistant", "content": "J'adore la programmation."},
-    {"role": "user", "content": "Translate: I love building applications."}
-]
+# conversation = [ #Dictionary format
+#     {"role": "system", "content": "You are a helpful assistant that translates English to French."},
+#     {"role": "user", "content": "Translate: I love programming."},
+#     {"role": "assistant", "content": "J'adore la programmation."},
+#     {"role": "user", "content": "Translate: I love building applications."}
+# ]
+
 
 # response = model.invoke(conversation)
 # print(response.content)
@@ -30,37 +31,46 @@ conversation = [
     HumanMessage("Translate: I love building applications.")
 ]
 
-# response = model.invoke(conversation)
-# print(response)  # AIMessage("J'adore créer des applications.")
+response = model.invoke(conversation)
+print(response)  # AIMessage("J'adore créer des applications.")
 
-##Stream-> Most models can stream their output content while it is being generated. 
+#Stream-> Most models can stream their output content while it is being generated. 
 # By displaying output progressively, streaming significantly improves user experience, 
 # particularly for longer responses.
 
-# for  chunk in model.stream("Why do LLM models hallucinate?"):
-#     print(chunk.text, end="|",flush=False)
+for  chunk in model.stream("Why do LLM models hallucinate?"):
+    print(chunk.text, end="|")
     
-##Constructing ans AI message 
-# full = None
-# for chunk in model.stream("What color is the sky?"):
-#     full = chunk if full is None else  full + chunk
-#     print(full.text)
+# ##Constructing ans AI message 
+full = None
+for chunk in model.stream("What color is the sky?"):
+    full = chunk if full is None else  full + chunk
+    print(full.text)
     
-#print(full.content_blocks)
-# [{"type": "text", "text": "The sky is typically blue..."}]
+# #print(full.content_blocks)
+# # [{"type": "text", "text": "The sky is typically blue..."}]
 
 
-#Batch->
-"""Batching a collection of independent requests to a model can significantly improve performance and, 
-reduce costs, as the processing can be done in parallel:"""
+# #Batch->
+# """Batching a collection of independent requests to a model can significantly improve performance and, 
+# reduce costs, as the processing can be done in parallel:"""
 
 responses  = model.batch([
-    "What are dangerous Inventions in AI",
-    "Prdeictions Of AI in 2050?",
+    "Which color is the sky",
+    "What is current economy rate of India?",
     "What is Agentic AI?"
 ])
 for response in responses:
     print(response)
 
+for response in model.batch_as_completed(["Which color is the sky",
+     "What is current economy rate of India?",
+     "What is Agentic AI?"
+ ]):
 
-    
+   print(response)
+   
+
+
+
+                                                                                      

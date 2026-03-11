@@ -2,7 +2,7 @@ from langchain.chat_models import init_chat_model
 
 model = init_chat_model("llama3.1", model_provider="ollama")
 
-#A chat model must n=be invokked to generate an ouput...
+#A chat model must n be invokked to generate an ouput...
 
 #Invoke->
 # The most straightforward way to call a model is to use invoke() with a single message
@@ -17,6 +17,7 @@ model = init_chat_model("llama3.1", model_provider="ollama")
 #     {"role": "assistant", "content": "J'adore la programmation."},
 #     {"role": "user", "content": "Translate: I love building applications."}
 # ]
+
 
 
 # response = model.invoke(conversation)

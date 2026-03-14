@@ -11,5 +11,8 @@ class Movie(BaseModel):
     Records: float = Field(..., description="Total 100's and 50's by him")
     
 model_with_structure = model.with_structured_output(Movie)
-response = model_with_structure.invoke("Give an introduction about Mahenfra singh Dhoni")
+response = model_with_structure.invoke("Give an introduction about the cricketer Sachin Tendulkar")
 print(response)
+
+
+

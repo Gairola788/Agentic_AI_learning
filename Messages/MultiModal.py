@@ -25,15 +25,18 @@
 # response = model.invoke([message])
 # print(response.content)
 
-import base64
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage
+import base64
+import requests
 
 model = init_chat_model("llama3.2-vision", model_provider="ollama")
 
-# Read from local file
-with open("images/toucan.jpg", 'rb') as f:
-    base64_image = base64.b64encode(f.read()).decode('utf-8')
+# Use a DIRECT image URL (not a webpage)
+image_url = "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800"  # Toucan image
+
+response = requests.get(image_url)
+base64_image = base64.b64encode(response.content).decode('utf-8')
 
 message = HumanMessage(
     content=[

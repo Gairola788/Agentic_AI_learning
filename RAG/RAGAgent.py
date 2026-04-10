@@ -11,4 +11,3 @@ docs = loader.load()
 
 assert len(docs) == 1
 print(f"Total characters: {len(docs[0].page_content)}")
-print(docs[1].page_content[:500])
